@@ -1,0 +1,47 @@
+name: Bug report
+description: A pattern does not match what you expect, or the library misbehaves.
+labels: [bug]
+body:
+  - type: textarea
+    id: pattern
+    attributes:
+      label: Pattern and path
+      description: The pattern, the base directory if any, and the path you matched against.
+      placeholder: |
+        base:    /project
+        pattern: doc/**/*.md
+        path:    /project/doc/api/index.md
+    validations:
+      required: true
+
+  - type: input
+    id: expected
+    attributes:
+      label: Expected result
+      placeholder: "true (git check-ignore reports it as ignored)"
+    validations:
+      required: true
+
+  - type: input
+    id: actual
+    attributes:
+      label: Actual result
+      placeholder: "false"
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproducer
+      description: A small Go snippet or failing test, if you have one.
+      render: go
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The module version and your Go version.
+      placeholder: "globbing-go v0.2.0, go1.24.7"
+    validations:
+      required: true
