@@ -22,8 +22,12 @@ type SyntaxError struct {
 	Reason string
 }
 
-func (e *SyntaxError) Error() string {
-	return fmt.Sprintf("globbing: %s at offset %d in pattern %q", e.Reason, e.Offset, e.Pattern)
+func (e *SyntaxError) Error() string { return "globbing: " + e.message() }
+
+// message is Error without the package prefix, so that a wrapping error can
+// supply its own without repeating it.
+func (e *SyntaxError) message() string {
+	return fmt.Sprintf("%s at offset %d in pattern %q", e.Reason, e.Offset, e.Pattern)
 }
 
 // A Pattern is a single compiled gitignore-style rule.

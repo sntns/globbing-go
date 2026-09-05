@@ -293,6 +293,10 @@ func TestFilterParseError(t *testing.T) {
 	if !errors.As(err, &se) {
 		t.Errorf("Parse error does not unwrap to *SyntaxError")
 	}
+	want := `globbing: line 3: unterminated bracket expression at offset 4 in pattern "name[a-z"`
+	if got := err.Error(); got != want {
+		t.Errorf("Error() = %q, want %q", got, want)
+	}
 	if got, want := f.Len(), 1; got != want {
 		t.Errorf("Len() = %d, want %d: rules read before the error are kept", got, want)
 	}

@@ -19,6 +19,10 @@ type ParseError struct {
 }
 
 func (e *ParseError) Error() string {
+	var se *SyntaxError
+	if errors.As(e.Err, &se) {
+		return fmt.Sprintf("globbing: line %d: %s", e.Line, se.message())
+	}
 	return fmt.Sprintf("globbing: line %d: %v", e.Line, e.Err)
 }
 
